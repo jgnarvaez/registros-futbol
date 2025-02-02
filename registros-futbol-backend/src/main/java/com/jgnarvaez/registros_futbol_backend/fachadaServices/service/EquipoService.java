@@ -1,6 +1,7 @@
-package com.jgnarvaez.registros_futbol_backend.service;
+package com.jgnarvaez.registros_futbol_backend.fachadaServices.service;
 import java.util.List;
-import com.jgnarvaez.registros_futbol_backend.model.EquipoEntity;
+
+import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.models.EquipoEntity;
 
 public interface EquipoService {
     List<EquipoEntity> obtenerEquipos();

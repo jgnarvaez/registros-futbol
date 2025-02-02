@@ -1,12 +1,14 @@
-package com.jgnarvaez.registros_futbol_backend.controller;
+package com.jgnarvaez.registros_futbol_backend.capaControladores;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.jgnarvaez.registros_futbol_backend.model.EquipoEntity;
-import com.jgnarvaez.registros_futbol_backend.service.EquipoService;
+
+import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.models.EquipoEntity;
+import com.jgnarvaez.registros_futbol_backend.fachadaServices.service.EquipoService;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
