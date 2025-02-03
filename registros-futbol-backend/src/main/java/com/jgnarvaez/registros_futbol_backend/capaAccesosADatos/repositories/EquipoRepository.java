@@ -15,16 +15,16 @@ public class EquipoRepository {
         cargarEquipos();
     }
 
-    public List<EquipoEntity> buscarTodos() {
+    public List<EquipoEntity> obtenerEquipos() {
         System.out.println("Invocando a listar equipos");
         return this.listaDeEquipos;
     }
 
-    public EquipoEntity buscarPorId(Integer id) {
+    public EquipoEntity obtenerEquipoPorCodigo(String codigo) {
         System.out.println("Invocando a consultar un equipo");
         EquipoEntity objEquipo = null;
         for (EquipoEntity equipo : listaDeEquipos) {
-            if (equipo.getId() == id) {
+            if (equipo.getCodigoEquipo() == codigo) {
                 objEquipo = equipo;
                 break;
             }
@@ -32,7 +32,7 @@ public class EquipoRepository {
         return objEquipo;
     }
 
-    public EquipoEntity guardar(EquipoEntity equipo) {
+    public EquipoEntity crearEquipo(EquipoEntity equipo) {
         System.out.println("Invocando a almacenar equipo");
         EquipoEntity objEquipo = null;
         if (this.listaDeEquipos.add(equipo)) {
@@ -41,11 +41,11 @@ public class EquipoRepository {
         return objEquipo;
     }
 
-    public EquipoEntity actualizar(Integer id, EquipoEntity equipo) {
+    public EquipoEntity actualizarEquipo(String codigo, EquipoEntity equipo) {
         System.out.println("Invocando a actualizar un equipo");
         EquipoEntity objEquipo = null;
         for (int i = 0; i < this.listaDeEquipos.size(); i++) {
-            if (this.listaDeEquipos.get(i).getId() == id) {
+            if (this.listaDeEquipos.get(i).getCodigoEquipo() == codigo) {
                 this.listaDeEquipos.set(i, equipo);
                 objEquipo = equipo;
                 break;
@@ -54,11 +54,11 @@ public class EquipoRepository {
         return objEquipo;
     }
 
-    public boolean eliminar(Integer id) {
+    public boolean eliminarEquipo(String codigo) {
         System.out.println("Invocando a eliminar un equipo");
         boolean bandera = false;
         for (int i = 0; i < this.listaDeEquipos.size(); i++) {
-            if (this.listaDeEquipos.get(i).getId() == id) {
+            if (this.listaDeEquipos.get(i).getCodigoEquipo() == codigo) {
                 this.listaDeEquipos.remove(i);
                 bandera = true;
                 break;
@@ -68,11 +68,11 @@ public class EquipoRepository {
     }
 
     private void cargarEquipos() {
-        EquipoEntity objEquipo1 = new EquipoEntity(01, "NAL", "Colombia", CategoriaEnum.A, 1900, 100000000.00);
+        EquipoEntity objEquipo1 = new EquipoEntity("NAL", "Atlético Ncional","Colombia", CategoriaEnum.A, 1900, 100000000.00);
         this.listaDeEquipos.add(objEquipo1);
-        EquipoEntity objEquipo2 = new EquipoEntity(02, "AME", "Colombia", CategoriaEnum.A, 1910, 200000000.00);
+        EquipoEntity objEquipo2 = new EquipoEntity("AME", "América de Cali","Colombia", CategoriaEnum.A, 1910, 200000000.00);
         this.listaDeEquipos.add(objEquipo2);
-        EquipoEntity objEquipo3 = new EquipoEntity(03, "MIL", "Colombia", CategoriaEnum.A, 1920, 100000000.00);
+        EquipoEntity objEquipo3 = new EquipoEntity("MIL", "Millonarios","Colombia", CategoriaEnum.A, 1920, 100000000.00);
         this.listaDeEquipos.add(objEquipo3);
     }
 }

@@ -1,9 +1,7 @@
 package com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.repositories;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Repository;
-
 import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.models.CategoriaEnum;
 import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.models.EquipoEntity;
 import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.models.FutbolistaEntity;
@@ -18,12 +16,12 @@ public class FutbolistaRepository {
         cargarFutbolistas();
     }
 
-    public List<FutbolistaEntity> buscarTodos() {
+    public List<FutbolistaEntity> obtenerFutbolistas() {
         System.out.println("Invocando a listar futbolistas");
         return this.listaDeFutbolistas;
     }
 
-    public FutbolistaEntity buscarPorId(Integer id) {
+    public FutbolistaEntity obtenerFutbolistaPorId(Integer id) {
         System.out.println("Invocando a consultar un futbolista");
         FutbolistaEntity objFutbolista = null;
         for (FutbolistaEntity futbolista : listaDeFutbolistas) {
@@ -35,7 +33,7 @@ public class FutbolistaRepository {
         return objFutbolista;
     }
 
-    public FutbolistaEntity guardar(FutbolistaEntity futbolista) {
+    public FutbolistaEntity crearFutbolista(FutbolistaEntity futbolista) {
         System.out.println("Invocando a almacenar futbolista");
         FutbolistaEntity objFutbolista = null;
         if (this.listaDeFutbolistas.add(futbolista)) {
@@ -44,7 +42,7 @@ public class FutbolistaRepository {
         return objFutbolista;
     }
 
-    public FutbolistaEntity actualizar(Integer id, FutbolistaEntity futbolista) {
+    public FutbolistaEntity actualizarFutbolista(Integer id, FutbolistaEntity futbolista) {
         System.out.println("Invocando a actualizar un futbolista");
         FutbolistaEntity objFutbolista = null;
         for (int i = 0; i < this.listaDeFutbolistas.size(); i++) {
@@ -57,7 +55,7 @@ public class FutbolistaRepository {
         return objFutbolista;
     }
 
-    public boolean eliminar(Integer id) {
+    public boolean eliminarFutbolista(Integer id) {
         System.out.println("Invocando a eliminar un futbolista");
         boolean bandera = false;
         for (int i = 0; i < this.listaDeFutbolistas.size(); i++) {
@@ -71,13 +69,13 @@ public class FutbolistaRepository {
     }
 
     private void cargarFutbolistas() {
-        EquipoEntity equipo1 = new EquipoEntity(01, "NAL", "Colombia", CategoriaEnum.A, 1900, 100000000.00);
+        EquipoEntity equipo1 = new EquipoEntity("AME", "América de Cali", "Colombia", CategoriaEnum.A, 1900, 100000000.00);
         
-        FutbolistaEntity objFutbolista1 = new FutbolistaEntity(10, "Juan", 20, "Colombiano", PosicionEnum.ARQUERO, false, equipo1);
+        FutbolistaEntity objFutbolista1 = new FutbolistaEntity(5, "Fabian Vargas", equipo1, 35, 10, "Ecuador", PosicionEnum.DEFENSA, false);
         this.listaDeFutbolistas.add(objFutbolista1);
-        FutbolistaEntity objFutbolista2 = new FutbolistaEntity(11, "Pedro", 22, "Colombiano", PosicionEnum.DEFENSA, true, equipo1);
+        FutbolistaEntity objFutbolista2 = new FutbolistaEntity(10, "Duvan Vergara", equipo1, 30, 30, "Colombiano", PosicionEnum.MEDIO, false);
         this.listaDeFutbolistas.add(objFutbolista2);
-        FutbolistaEntity objFutbolista3 = new FutbolistaEntity(12, "David", 24, "Colombiano", PosicionEnum.MEDIO, false, equipo1);
+        FutbolistaEntity objFutbolista3 = new FutbolistaEntity(9, "Michael Rangel", equipo1, 25, 60, "Colombiano", PosicionEnum.DELANTERO, false);
         this.listaDeFutbolistas.add(objFutbolista3);
     }
 }

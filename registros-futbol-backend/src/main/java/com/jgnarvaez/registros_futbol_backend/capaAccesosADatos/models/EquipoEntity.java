@@ -20,10 +20,10 @@ public class EquipoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
     @Column(unique = true, length = 3)
     private String codigoEquipo;
+
+    private String nombre;
 
     private String pais;
 

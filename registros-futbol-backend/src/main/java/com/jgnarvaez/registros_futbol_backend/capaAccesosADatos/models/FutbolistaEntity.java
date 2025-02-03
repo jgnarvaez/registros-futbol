@@ -24,8 +24,14 @@ public class FutbolistaEntity {
     private Integer id;
 
     private String nombre;
+
+    @ManyToOne
+    @JoinColumn(name = "equipo_id")
+    private EquipoEntity equipo;
     
     private Integer edad;
+
+    private Integer golesAnotadosPorTemporada;
     
     private String nacionalidad;
     
@@ -33,8 +39,4 @@ public class FutbolistaEntity {
     private PosicionEnum posicion;
     
     private Boolean lesiones;
-    
-    @ManyToOne
-    @JoinColumn(name = "equipo_id")
-    private EquipoEntity equipo;
 }
