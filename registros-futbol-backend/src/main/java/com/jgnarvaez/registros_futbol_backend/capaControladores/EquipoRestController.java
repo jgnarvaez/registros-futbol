@@ -33,21 +33,21 @@ public class EquipoRestController {
     @PostMapping("/equipos")
     public EquipoDTO create(@RequestBody EquipoDTO equipo) {
         EquipoDTO objEquipo = null;
-        objEquipo = equipoService.crearEquipo(objEquipo);
+        objEquipo = equipoService.crearEquipo(equipo);
         return objEquipo;
     }
 
-    @PutMapping("/clientes/{codigo}")
+    @PutMapping("/equipos/{codigo}")
     public EquipoDTO update(@RequestBody EquipoDTO equipo, @PathVariable String codigo) {
         EquipoDTO objEquipo = null;
         EquipoDTO equipoActual = equipoService.obtenerEquipoPorCodigo(codigo);
         if (equipoActual != null) {
-            objEquipo = equipoService.actualizarEquipo(codigo, equipoActual);
+            objEquipo = equipoService.actualizarEquipo(codigo, equipo);
         }
         return objEquipo;
     }
 
-    @DeleteMapping("/clientes/{codigo}")
+    @DeleteMapping("/equipos/{codigo}")
     public Boolean delete(@PathVariable String codigo) {
         Boolean bandera = false;
         EquipoDTO equipoActual = equipoService.obtenerEquipoPorCodigo(codigo);
