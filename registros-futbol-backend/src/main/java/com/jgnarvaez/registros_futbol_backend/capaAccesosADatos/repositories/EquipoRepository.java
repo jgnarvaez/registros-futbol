@@ -2,8 +2,8 @@ package com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.repositories;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Repository;
-import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.models.CategoriaEnum;
 import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.models.EquipoEntity;
+//import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.models.CategoriaEnum;
 
 @Repository
 public class EquipoRepository {
@@ -12,7 +12,7 @@ public class EquipoRepository {
 
     public EquipoRepository() {
         this.listaDeEquipos = new ArrayList<EquipoEntity>();
-        cargarEquipos();
+        //cargarEquipos();
     }
 
     public List<EquipoEntity> obtenerEquipos() {
@@ -67,12 +67,12 @@ public class EquipoRepository {
         return bandera;
     }
 
-    private void cargarEquipos() {
-        EquipoEntity objEquipo1 = new EquipoEntity("NAL", "Atlético Ncional","Colombia", CategoriaEnum.A, 1900, 100000000.00);
-        this.listaDeEquipos.add(objEquipo1);
-        EquipoEntity objEquipo2 = new EquipoEntity("AME", "América de Cali","Colombia", CategoriaEnum.A, 1910, 200000000.00);
-        this.listaDeEquipos.add(objEquipo2);
-        EquipoEntity objEquipo3 = new EquipoEntity("MIL", "Millonarios","Colombia", CategoriaEnum.A, 1920, 100000000.00);
-        this.listaDeEquipos.add(objEquipo3);
-    }
+    // private void cargarEquipos() {
+    //     EquipoEntity objEquipo1 = new EquipoEntity("NAL", "Atlético Ncional","Colombia", CategoriaEnum.A, 1900, 100000000.00);
+    //     this.listaDeEquipos.add(objEquipo1);
+    //     EquipoEntity objEquipo2 = new EquipoEntity("AME", "América de Cali","Colombia", CategoriaEnum.A, 1910, 200000000.00);
+    //     this.listaDeEquipos.add(objEquipo2);
+    //     EquipoEntity objEquipo3 = new EquipoEntity("MIL", "Millonarios","Colombia", CategoriaEnum.A, 1920, 100000000.00);
+    //     this.listaDeEquipos.add(objEquipo3);
+    // }
 }

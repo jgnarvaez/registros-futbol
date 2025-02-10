@@ -8,6 +8,8 @@ import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.models.EquipoEnt
 import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.repositories.EquipoRepository;
 import com.jgnarvaez.registros_futbol_backend.fachadaServices.DTO.EquipoDTO;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class EquipoServiceImpl implements IEquipoService {
 
@@ -39,6 +41,7 @@ public class EquipoServiceImpl implements IEquipoService {
     }
 
     @Override
+    @Transactional
     public EquipoDTO crearEquipo(EquipoDTO equipo) {
         EquipoEntity equipoEntity = this.modelMapper.map(equipo, EquipoEntity.class);
         EquipoEntity objEquipoEntity = this.servicioAccesoBaseDatos.crearEquipo(equipoEntity);
@@ -50,6 +53,7 @@ public class EquipoServiceImpl implements IEquipoService {
     }
 
     @Override
+    @Transactional
     public EquipoDTO actualizarEquipo(String codigo, EquipoDTO equipo) {
         EquipoEntity equipoEntity = this.modelMapper.map(equipo, EquipoEntity.class);
         EquipoEntity equipoEntityActualizado = this.servicioAccesoBaseDatos.actualizarEquipo(codigo, equipoEntity);
@@ -61,6 +65,7 @@ public class EquipoServiceImpl implements IEquipoService {
     }
 
     @Override
+    @Transactional
     public boolean eliminarEquipo(String codigo) {
         return this.servicioAccesoBaseDatos.eliminarEquipo(codigo);
         // return servicioAccesoBaseDatos.eliminarEquipo(codigo);

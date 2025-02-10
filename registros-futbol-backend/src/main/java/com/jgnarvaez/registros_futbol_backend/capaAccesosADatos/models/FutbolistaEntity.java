@@ -28,6 +28,8 @@ public class FutbolistaEntity {
     @ManyToOne
     @JoinColumn(name = "equipo_id")
     private EquipoEntity equipo;
+
+    private String codigoEquipo;
     
     private Integer edad;
 

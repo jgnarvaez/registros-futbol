@@ -13,7 +13,7 @@ public class FutbolistaDTO {
     
     private Integer id;
     private String nombre;
-    private String equipoId;
+    private String codigoEquipo;
     private Integer edad;
     private Integer golesAnotadosPorTemporada;
     private String nacionalidad;
