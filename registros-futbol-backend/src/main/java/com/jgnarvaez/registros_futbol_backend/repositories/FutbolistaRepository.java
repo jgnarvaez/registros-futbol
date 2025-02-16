@@ -1,11 +1,12 @@
-package com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.repositories;
+package com.jgnarvaez.registros_futbol_backend.repositories;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Repository;
-import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.models.FutbolistaEntity;
-//import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.models.CategoriaEnum;
-//import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.models.EquipoEntity;
-//import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.models.PosicionEnum;
+
+import com.jgnarvaez.registros_futbol_backend.models.CategoriaEnum;
+import com.jgnarvaez.registros_futbol_backend.models.EquipoEntity;
+import com.jgnarvaez.registros_futbol_backend.models.FutbolistaEntity;
+import com.jgnarvaez.registros_futbol_backend.models.PosicionEnum;
 
 @Repository
 public class FutbolistaRepository {
@@ -13,7 +14,7 @@ public class FutbolistaRepository {
 
     public FutbolistaRepository() {
         this.listaDeFutbolistas = new ArrayList<FutbolistaEntity>();
-        //cargarFutbolistas();
+        cargarFutbolistas();
     }
 
     public List<FutbolistaEntity> obtenerFutbolistas() {
@@ -68,14 +69,14 @@ public class FutbolistaRepository {
         return bandera;
     }
 
-    // private void cargarFutbolistas() {
-    //     EquipoEntity equipo1 = new EquipoEntity("AME", "América de Cali", "Colombia", CategoriaEnum.A, 1900, 100000000.00);
+    private void cargarFutbolistas() {
+        EquipoEntity equipo1 = new EquipoEntity("AME", "América de Cali", "Colombia", CategoriaEnum.A, 1900, 100000000.00,listaDeFutbolistas);
         
-    //     FutbolistaEntity objFutbolista1 = new FutbolistaEntity(5, "Fabian Vargas", equipo1, equipo1.getCodigoEquipo(), 35, 10, "Ecuador", PosicionEnum.DEFENSA, false);
-    //     this.listaDeFutbolistas.add(objFutbolista1);
-    //     FutbolistaEntity objFutbolista2 = new FutbolistaEntity(10, "Duvan Vergara", equipo1, equipo1.getCodigoEquipo(), 30, 30, "Colombiano", PosicionEnum.MEDIO, true);
-    //     this.listaDeFutbolistas.add(objFutbolista2);
-    //     FutbolistaEntity objFutbolista3 = new FutbolistaEntity(9, "Michael Rangel", equipo1, equipo1.getCodigoEquipo(), 25, 60, "Colombiano", PosicionEnum.DELANTERO, false);
-    //     this.listaDeFutbolistas.add(objFutbolista3);
-    // }
+        FutbolistaEntity objFutbolista1 = new FutbolistaEntity(5, "Fabian Vargas", equipo1, equipo1.getCodigoEquipo(), 35, 10, "Ecuador", PosicionEnum.DEFENSA, false);
+        this.listaDeFutbolistas.add(objFutbolista1);
+        FutbolistaEntity objFutbolista2 = new FutbolistaEntity(10, "Duvan Vergara", equipo1, equipo1.getCodigoEquipo(), 30, 30, "Colombiano", PosicionEnum.MEDIO, true);
+        this.listaDeFutbolistas.add(objFutbolista2);
+        FutbolistaEntity objFutbolista3 = new FutbolistaEntity(9, "Michael Rangel", equipo1, equipo1.getCodigoEquipo(), 25, 60, "Colombiano", PosicionEnum.DELANTERO, false);
+        this.listaDeFutbolistas.add(objFutbolista3);
+    }
 }

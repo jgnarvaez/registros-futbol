@@ -1,4 +1,4 @@
-package com.jgnarvaez.registros_futbol_backend.capaControladores;
+package com.jgnarvaez.registros_futbol_backend.controllers;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jgnarvaez.registros_futbol_backend.fachadaServices.DTO.FutbolistaDTO;
-import com.jgnarvaez.registros_futbol_backend.fachadaServices.service.IFutbolistaService;
+import com.jgnarvaez.registros_futbol_backend.services.DTO.FutbolistaDTO;
+import com.jgnarvaez.registros_futbol_backend.services.service.IFutbolistaService;
 
 @RestController
 @RequestMapping("/api")

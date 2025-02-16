@@ -1,4 +1,4 @@
-package com.jgnarvaez.registros_futbol_backend.capaControladores;
+package com.jgnarvaez.registros_futbol_backend.controllers;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jgnarvaez.registros_futbol_backend.fachadaServices.DTO.EquipoDTO;
-import com.jgnarvaez.registros_futbol_backend.fachadaServices.service.IEquipoService;
+import com.jgnarvaez.registros_futbol_backend.services.DTO.EquipoDTO;
+import com.jgnarvaez.registros_futbol_backend.services.service.IEquipoService;
 
 @RestController
 @RequestMapping("/api")
@@ -53,13 +53,13 @@ public class EquipoRestController {
     }
 
     @DeleteMapping("/equipos/{codigo}")
-    public Boolean delete(@PathVariable String codigo) {
-        Boolean bandera = false;
+    public void delete(@PathVariable String codigo) {
         EquipoDTO equipoActual = equipoService.obtenerEquipoPorCodigo(codigo);
         if (equipoActual != null) {
-            bandera = equipoService.eliminarEquipo(codigo);
+            System.out.println("Equipo eliminado con éxito");
+        }else{
+            System.out.println("No existe el equipo");
         }
-        return bandera;
     }
 
     @GetMapping("equipos2/{nombre}/{categoria}")

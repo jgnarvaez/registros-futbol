@@ -1,6 +1,7 @@
-package com.jgnarvaez.registros_futbol_backend.fachadaServices.service;
+package com.jgnarvaez.registros_futbol_backend.services.service;
 import java.util.List;
-import com.jgnarvaez.registros_futbol_backend.fachadaServices.DTO.FutbolistaDTO;
+
+import com.jgnarvaez.registros_futbol_backend.services.DTO.FutbolistaDTO;
 
 public interface IFutbolistaService {
     

@@ -1,4 +1,4 @@
-package com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.models;
+package com.jgnarvaez.registros_futbol_backend.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

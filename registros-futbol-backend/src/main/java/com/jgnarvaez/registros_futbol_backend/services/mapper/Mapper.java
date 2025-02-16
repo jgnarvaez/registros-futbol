@@ -1,4 +1,4 @@
-package com.jgnarvaez.registros_futbol_backend.fachadaServices.mapper;
+package com.jgnarvaez.registros_futbol_backend.services.mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

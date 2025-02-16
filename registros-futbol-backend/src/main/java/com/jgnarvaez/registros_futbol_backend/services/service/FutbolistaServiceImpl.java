@@ -1,15 +1,16 @@
-package com.jgnarvaez.registros_futbol_backend.fachadaServices.service;
+package com.jgnarvaez.registros_futbol_backend.services.service;
 import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.models.EquipoEntity;
-import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.models.FutbolistaEntity;
-import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.models.PosicionEnum;
-import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.repositories.FutbolistaRepository;
-import com.jgnarvaez.registros_futbol_backend.fachadaServices.DTO.EquipoDTO;
-import com.jgnarvaez.registros_futbol_backend.fachadaServices.DTO.FutbolistaDTO;
+
+import com.jgnarvaez.registros_futbol_backend.models.EquipoEntity;
+import com.jgnarvaez.registros_futbol_backend.models.FutbolistaEntity;
+import com.jgnarvaez.registros_futbol_backend.models.PosicionEnum;
+import com.jgnarvaez.registros_futbol_backend.repositories.FutbolistaRepository;
+import com.jgnarvaez.registros_futbol_backend.services.DTO.EquipoDTO;
+import com.jgnarvaez.registros_futbol_backend.services.DTO.FutbolistaDTO;
 
 @Service
 public class FutbolistaServiceImpl implements IFutbolistaService {

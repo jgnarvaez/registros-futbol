@@ -1,12 +1,9 @@
-package com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.models;
+package com.jgnarvaez.registros_futbol_backend.models;
 import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -22,7 +19,6 @@ import lombok.Setter;
 public class EquipoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, length = 3)
     private String codigoEquipo;
 

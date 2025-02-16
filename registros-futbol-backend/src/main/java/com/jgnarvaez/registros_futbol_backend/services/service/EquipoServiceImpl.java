@@ -1,12 +1,15 @@
-package com.jgnarvaez.registros_futbol_backend.fachadaServices.service;
+package com.jgnarvaez.registros_futbol_backend.services.service;
 import java.util.List;
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.models.EquipoEntity;
-import com.jgnarvaez.registros_futbol_backend.capaAccesosADatos.repositories.EquipoRepository;
-import com.jgnarvaez.registros_futbol_backend.fachadaServices.DTO.EquipoDTO;
+
+import com.jgnarvaez.registros_futbol_backend.models.EquipoEntity;
+import com.jgnarvaez.registros_futbol_backend.repositories.EquipoRepository;
+import com.jgnarvaez.registros_futbol_backend.services.DTO.EquipoDTO;
 
 import jakarta.transaction.Transactional;
 
@@ -21,7 +24,7 @@ public class EquipoServiceImpl implements IEquipoService {
 
     @Override
     public List<EquipoDTO> obtenerEquipos() {
-        List<EquipoEntity> equiposEntity = this.servicioAccesoBaseDatos.obtenerEquipos();
+        List<EquipoEntity> equiposEntity = (List<EquipoEntity>) this.servicioAccesoBaseDatos.findAll();
         List<EquipoDTO> equiposDTO = this.modelMapper.map(equiposEntity, new TypeToken<List<EquipoDTO>>() {
         }.getType());
         return equiposDTO;
@@ -33,7 +36,7 @@ public class EquipoServiceImpl implements IEquipoService {
 
     @Override
     public EquipoDTO obtenerEquipoPorCodigo(String codigo) {
-        EquipoEntity objEquipoEntity = this.servicioAccesoBaseDatos.obtenerEquipoPorCodigo(codigo);
+        Optional<EquipoEntity> objEquipoEntity = this.servicioAccesoBaseDatos.findById(codigo);
         EquipoDTO objEquipoDTO = this.modelMapper.map(objEquipoEntity, EquipoDTO.class);
         return objEquipoDTO;
         // EquipoEntity equipo = servicioAccesoBaseDatos.obtenerEquipoPorId(codigo);
@@ -44,7 +47,7 @@ public class EquipoServiceImpl implements IEquipoService {
     @Transactional
     public EquipoDTO crearEquipo(EquipoDTO equipo) {
         EquipoEntity equipoEntity = this.modelMapper.map(equipo, EquipoEntity.class);
-        EquipoEntity objEquipoEntity = this.servicioAccesoBaseDatos.crearEquipo(equipoEntity);
+        EquipoEntity objEquipoEntity = this.servicioAccesoBaseDatos.save(equipoEntity);
         EquipoDTO objEquipoDTO = this.modelMapper.map(objEquipoEntity, EquipoDTO.class);
         return objEquipoDTO;
         // EquipoEntity equipo = modelMapper.map(equipoDTO, EquipoEntity.class);
@@ -56,7 +59,7 @@ public class EquipoServiceImpl implements IEquipoService {
     @Transactional
     public EquipoDTO actualizarEquipo(String codigo, EquipoDTO equipo) {
         EquipoEntity equipoEntity = this.modelMapper.map(equipo, EquipoEntity.class);
-        EquipoEntity equipoEntityActualizado = this.servicioAccesoBaseDatos.actualizarEquipo(codigo, equipoEntity);
+        EquipoEntity equipoEntityActualizado = this.servicioAccesoBaseDatos.update(codigo, equipoEntity);
         EquipoDTO objEquipoDTO = this.modelMapper.map(equipoEntityActualizado, EquipoDTO.class);
         return objEquipoDTO;
         // EquipoEntity equipo = modelMapper.map(equipoDTO, EquipoEntity.class);
@@ -66,8 +69,8 @@ public class EquipoServiceImpl implements IEquipoService {
 
     @Override
     @Transactional
-    public boolean eliminarEquipo(String codigo) {
-        return this.servicioAccesoBaseDatos.eliminarEquipo(codigo);
+    public void eliminarEquipo(String codigo) {
+        this.servicioAccesoBaseDatos.deleteById(codigo);
         // return servicioAccesoBaseDatos.eliminarEquipo(codigo);
     }
 }
