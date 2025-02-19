@@ -1,8 +1,12 @@
 package com.jgnarvaez.registros_futbol_backend.services.DTO;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
+
+import com.jgnarvaez.registros_futbol_backend.models.EquipoEntity;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +25,9 @@ public class FutbolistaDTO {
     @NotBlank(message = "El nombre del futbolista no puede estar en blanco")
     @Size(min = 5, max = 50, message = "El nombre del futbolista debe tener entre 5 y 45 caracteres")
     private String nombre;
+
+    @Valid
+    private EquipoEntity equipo;
 
     @NotBlank(message = "El código del equipo no puede estar en blanco")
     @Size(min = 3, max = 3, message = "El código del equipo debe tener 3 caracteres")

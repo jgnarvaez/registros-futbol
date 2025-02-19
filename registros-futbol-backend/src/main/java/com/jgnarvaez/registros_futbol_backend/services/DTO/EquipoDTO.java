@@ -1,5 +1,7 @@
 package com.jgnarvaez.registros_futbol_backend.services.DTO;
 import java.util.List;
+
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -41,6 +43,7 @@ public class EquipoDTO {
     @Positive(message = "El presupuesto del equipo debe ser un número positivo")
     private Double presupuesto;
 
+    @Valid
     @Size(max = 32, message = "Un equipo no puede tener más de 32 futbolistas")
     private List<FutbolistaEntity> futbolistas;
 }

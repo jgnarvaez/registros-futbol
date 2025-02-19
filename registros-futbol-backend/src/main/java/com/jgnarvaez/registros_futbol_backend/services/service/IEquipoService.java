@@ -7,6 +7,6 @@ public interface IEquipoService {
     List<EquipoDTO> obtenerEquipos();
     EquipoDTO obtenerEquipoPorCodigo(String codigo);
     EquipoDTO crearEquipo(EquipoDTO equipo);
-    EquipoDTO actualizarEquipo(String id, EquipoDTO equipo);
-    void eliminarEquipo(String id);
+    EquipoDTO actualizarEquipo(String codigo, EquipoDTO equipo);
+    void eliminarEquipo(String codigo);
 }
