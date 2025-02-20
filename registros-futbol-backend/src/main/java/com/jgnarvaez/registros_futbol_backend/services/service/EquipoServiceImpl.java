@@ -2,7 +2,6 @@ package com.jgnarvaez.registros_futbol_backend.services.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import org.springframework.transaction.annotation.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -10,14 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
-
-import com.jgnarvaez.registros_futbol_backend.exceptionsControllers.exceptions.CodigoError;
 import com.jgnarvaez.registros_futbol_backend.exceptionsControllers.exceptions.EntidadNoExisteException;
 import com.jgnarvaez.registros_futbol_backend.exceptionsControllers.exceptions.EntidadYaExisteException;
 import com.jgnarvaez.registros_futbol_backend.models.CategoriaEnum;
 import com.jgnarvaez.registros_futbol_backend.models.EquipoEntity;
 import com.jgnarvaez.registros_futbol_backend.models.FutbolistaEntity;
-import com.jgnarvaez.registros_futbol_backend.models.PosicionEnum;
 import com.jgnarvaez.registros_futbol_backend.repositories.EquipoRepository;
 import com.jgnarvaez.registros_futbol_backend.services.DTO.EquipoDTO;
 
@@ -120,8 +116,20 @@ public class EquipoServiceImpl implements IEquipoService {
     }
 
     @Override
-    public void eliminarEquipo(String codigo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'eliminarEquipo'");
+    @Transactional(readOnly = false)
+    public boolean eliminarEquipo(String codigo) {
+        boolean bandera = false;
+        Optional<EquipoEntity> optional = this.servicioAccesoBaseDatos.findById(codigo);
+        if (!optional.isPresent()) {
+            EntidadNoExisteException objException = new EntidadNoExisteException(
+                "Cliente con id " + codigo + "no existe en la BD");
+            throw objException;
+        } else {
+            EquipoEntity user = optional.get();
+            this.servicioAccesoBaseDatos.delete(user);
+            bandera = true;
+        }
+
+        return bandera;
     }
 }
