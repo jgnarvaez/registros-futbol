@@ -1,12 +1,9 @@
 package com.jgnarvaez.registros_futbol_backend.services.DTO;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
-
-import com.jgnarvaez.registros_futbol_backend.models.EquipoEntity;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,9 +23,6 @@ public class FutbolistaDTO {
     @Size(min = 5, max = 50, message = "El nombre del futbolista debe tener entre 5 y 45 caracteres")
     private String nombre;
 
-    @Valid
-    private EquipoEntity equipo;
-
     @NotBlank(message = "El código del equipo no puede estar en blanco")
     @Size(min = 3, max = 3, message = "El código del equipo debe tener 3 caracteres")
     private String codigoEquipo;
@@ -46,6 +40,7 @@ public class FutbolistaDTO {
     private String nacionalidad;
 
     @NotBlank(message = "La posición del futbolista no puede estar en blanco")
+    @Pattern(regexp = "ARQUERO|DEFENSA|MEDIO|DELANTERO", message = "La posición del futbolista debe ser ARQUERO, DEFENSA, MEDIO o DELANTERO")
     private String posicion;
 
     @NotNull(message = "El estado de lesiones del futbolista no puede ser nulo")

@@ -1,7 +1,11 @@
 package com.jgnarvaez.registros_futbol_backend.controllers;
 import java.util.List;
 import java.util.Map;
+
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +22,7 @@ import com.jgnarvaez.registros_futbol_backend.services.service.IEquipoService;
 
 @RestController
 @RequestMapping("/api")
+@Validated
 public class EquipoRestController {
     
     @Autowired
@@ -36,14 +41,15 @@ public class EquipoRestController {
     }
 
     @PostMapping("/equipos")
-    public EquipoDTO create(@RequestBody EquipoDTO equipo) {
+    public EquipoDTO create(@RequestBody @Valid EquipoDTO equipo) {
         EquipoDTO objEquipo = null;
+        System.out.println(equipo);
         objEquipo = equipoService.crearEquipo(equipo);
         return objEquipo;
     }
 
     @PutMapping("/equipos/{codigo}")
-    public EquipoDTO update(@RequestBody EquipoDTO equipo, @PathVariable String codigo) {
+    public EquipoDTO update(@RequestBody @Valid EquipoDTO equipo, @PathVariable String codigo) {
         EquipoDTO objEquipo = null;
         EquipoDTO equipoActual = equipoService.obtenerEquipoPorCodigo(codigo);
         if (equipoActual != null) {
@@ -56,8 +62,13 @@ public class EquipoRestController {
     public void delete(@PathVariable String codigo) {
         EquipoDTO equipoActual = equipoService.obtenerEquipoPorCodigo(codigo);
         if (equipoActual != null) {
-            System.out.println("Equipo eliminado con éxito");
-        }else{
+            boolean eliminado = equipoService.eliminarEquipo(codigo);
+            if (eliminado) {
+                System.out.println("Equipo eliminado con éxito");
+            } else {
+                System.out.println("No se pudo eliminar el equipo");
+            }
+        } else {
             System.out.println("No existe el equipo");
         }
     }

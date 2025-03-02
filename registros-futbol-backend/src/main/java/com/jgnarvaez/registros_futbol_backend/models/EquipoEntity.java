@@ -1,5 +1,8 @@
 package com.jgnarvaez.registros_futbol_backend.models;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -34,5 +37,6 @@ public class EquipoEntity {
     private Double presupuesto;
 
     @OneToMany(mappedBy = "equipo") // Relación OneToMany con FutbolistaEntity
+    @JsonManagedReference // Esta anotación indica "la parte principal" de la relación
     private List<FutbolistaEntity> futbolistas; // Lista de futbolistas del equipo
 }

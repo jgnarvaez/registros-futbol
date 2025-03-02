@@ -2,7 +2,9 @@ package com.jgnarvaez.registros_futbol_backend.exceptionsControllers;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import javax.validation.ConstraintViolationException;
+
+import jakarta.validation.ConstraintViolationException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -21,7 +23,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public class RestApiExceptionHandler {
-    
+
     @ExceptionHandler(Exception.class)
         public ResponseEntity<Error> handleGenericException(final HttpServletRequest req,
                         final Exception ex, final Locale locale) {

@@ -1,4 +1,5 @@
 package com.jgnarvaez.registros_futbol_backend.services.service;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -74,46 +75,70 @@ public class EquipoServiceImpl implements IEquipoService {
     }
 
     @Override
-    @Transactional(readOnly = false)
-    public EquipoDTO actualizarEquipo(String codigo, EquipoDTO objEquipoConDatosNuevos) {
-        Optional<EquipoEntity> optional = this.servicioAccesoBaseDatos.findById(codigo);
-        EquipoDTO equipoDTOActualizado = null;
+@Transactional(readOnly = false)
+public EquipoDTO actualizarEquipo(String codigo, EquipoDTO objEquipoConDatosNuevos) {
+    Optional<EquipoEntity> optional = this.servicioAccesoBaseDatos.findById(codigo);
+    EquipoDTO equipoDTOActualizado = null;
+    
+    // Primero verifica si el Optional contiene un valor antes de llamar a get()
+    if (optional.isPresent()) {
         EquipoEntity objEquipoAlmacenado = optional.get();
-
-        if (objEquipoAlmacenado != null) {
-            objEquipoAlmacenado.setCodigoEquipo(objEquipoConDatosNuevos.getCodigoEquipo());
-            objEquipoAlmacenado.setNombre(objEquipoConDatosNuevos.getNombre());
-            objEquipoAlmacenado.setPais(objEquipoConDatosNuevos.getPais());
-            objEquipoAlmacenado.setCategoria(CategoriaEnum.valueOf(objEquipoConDatosNuevos.getCategoria()));
-            objEquipoAlmacenado.setAnioFundacion(objEquipoConDatosNuevos.getAnioFundacion());
-            objEquipoAlmacenado.setPresupuesto(objEquipoConDatosNuevos.getPresupuesto());
+        
+        objEquipoAlmacenado.setCodigoEquipo(objEquipoConDatosNuevos.getCodigoEquipo());
+        objEquipoAlmacenado.setNombre(objEquipoConDatosNuevos.getNombre());
+        objEquipoAlmacenado.setPais(objEquipoConDatosNuevos.getPais());
+        objEquipoAlmacenado.setCategoria(CategoriaEnum.valueOf(objEquipoConDatosNuevos.getCategoria()));
+        objEquipoAlmacenado.setAnioFundacion(objEquipoConDatosNuevos.getAnioFundacion());
+        objEquipoAlmacenado.setPresupuesto(objEquipoConDatosNuevos.getPresupuesto());
+        
+        // Verifica si la lista de futbolistas es null
+        if (objEquipoConDatosNuevos.getFutbolistas() != null) {
             // Actualizar la relación con los futbolistas uno por uno
             List<FutbolistaEntity> futbolistasActualizados = objEquipoConDatosNuevos.getFutbolistas().stream()
                 .map(futbolistaDTO -> {
-                    FutbolistaEntity futbolistaEntity = objEquipoAlmacenado.getFutbolistas().stream()
-                        .filter(f -> f.getId().equals(futbolistaDTO.getId()))
-                        .findFirst()
-                        .orElse(new FutbolistaEntity());
+                    FutbolistaEntity futbolistaEntity = null;
+                    
+                    // Verifica si la lista de futbolistas del equipo almacenado es null
+                    if (objEquipoAlmacenado.getFutbolistas() != null) {
+                        futbolistaEntity = objEquipoAlmacenado.getFutbolistas().stream()
+                            .filter(f -> f.getId() != null && f.getId().equals(futbolistaDTO.getId()))
+                            .findFirst()
+                            .orElse(new FutbolistaEntity());
+                    } else {
+                        futbolistaEntity = new FutbolistaEntity();
+                    }
+                    
                     futbolistaEntity.setId(futbolistaDTO.getId());
                     futbolistaEntity.setNombre(futbolistaDTO.getNombre());
-                    futbolistaEntity.setEquipo(futbolistaDTO.getEquipo());
+                    futbolistaEntity.setEquipo(objEquipoAlmacenado); // Establece relación con el equipo actual
                     futbolistaEntity.setCodigoEquipo(objEquipoConDatosNuevos.getCodigoEquipo());
                     futbolistaEntity.setEdad(futbolistaDTO.getEdad());
                     futbolistaEntity.setGolesAnotadosPorTemporada(futbolistaDTO.getGolesAnotadosPorTemporada());
                     futbolistaEntity.setNacionalidad(futbolistaDTO.getNacionalidad());
                     futbolistaEntity.setPosicion(futbolistaDTO.getPosicion());
                     futbolistaEntity.setLesiones(futbolistaDTO.getLesiones());
+                    
                     return futbolistaEntity;
                 })
                 .collect(Collectors.toList());
-                objEquipoAlmacenado.setFutbolistas(futbolistasActualizados);
-
-                EquipoEntity equipoEntityActualizado = this.servicioAccesoBaseDatos.save(objEquipoAlmacenado);
-                equipoDTOActualizado = this.modelMapper.map(equipoEntityActualizado, EquipoDTO.class);
+                
+            objEquipoAlmacenado.setFutbolistas(futbolistasActualizados);
+        } else {
+            // Si no hay futbolistas en la solicitud, mantener los existentes o establecer una lista vacía
+            if (objEquipoAlmacenado.getFutbolistas() == null) {
+                objEquipoAlmacenado.setFutbolistas(new ArrayList<>());
+            }
         }
 
-        return equipoDTOActualizado;
+        EquipoEntity equipoEntityActualizado = this.servicioAccesoBaseDatos.save(objEquipoAlmacenado);
+        equipoDTOActualizado = this.modelMapper.map(equipoEntityActualizado, EquipoDTO.class);
+    } else {
+        // Manejo de error cuando no se encuentra el equipo
+        throw new RuntimeException("No se encontró el equipo con código: " + codigo);
     }
+
+    return equipoDTOActualizado;
+}
 
     @Override
     @Transactional(readOnly = false)

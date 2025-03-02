@@ -57,23 +57,27 @@ public class FutbolistaServiceImpl implements IFutbolistaService {
     @Transactional
     public FutbolistaDTO crearFutbolista(FutbolistaDTO futbolista) {
         System.out.println("Almacenando futbolista: " + futbolista.getNombre());
-        if (this.servicioAccesoBaseDatos.existsById(futbolista.getId())) {
+
+        // Verificar si el ID ya existe en la base de datos
+        if (futbolista.getId() != null && this.servicioAccesoBaseDatos.existsById(futbolista.getId())) {
             throw new EntidadYaExisteException("Futbolista con ID " + futbolista.getId() + " ya existe en la BD");
         }
 
+        // Buscar el equipo por código
+        EquipoEntity equipoEntity = this.equipoRepository.findById(futbolista.getCodigoEquipo())
+                .orElseThrow(() -> new EntidadNoExisteException("Equipo con código " +
+                        futbolista.getCodigoEquipo() + " no encontrado en la BD"));
+
+        // Mapear de DTO a entidad
         FutbolistaEntity futbolistaEntity = this.modelMapper.map(futbolista, FutbolistaEntity.class);
 
-        // Obtener el equipo al que pertenece el futbolista
-        EquipoEntity equipoEntity = this.equipoRepository.findById(futbolista.getCodigoEquipo())
-              .orElseThrow(() -> new EntidadNoExisteException("Equipo con código " + futbolista.getCodigoEquipo() + " no encontrado en la BD"));
-        
         // Establecer la relación con el equipo
         futbolistaEntity.setEquipo(equipoEntity);
 
-        // Agregar el futbolista a la lista de futbolistas del equipo
-        equipoEntity.getFutbolistas().add(futbolistaEntity);
-
+        // Guardar el futbolista
         FutbolistaEntity nuevoFutbolistaEntity = this.servicioAccesoBaseDatos.save(futbolistaEntity);
+
+        // Mapear de vuelta a DTO
         return this.modelMapper.map(nuevoFutbolistaEntity, FutbolistaDTO.class);
     }
 

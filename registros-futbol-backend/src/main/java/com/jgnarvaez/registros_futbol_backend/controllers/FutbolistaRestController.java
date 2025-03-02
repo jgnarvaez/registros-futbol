@@ -1,6 +1,9 @@
 package com.jgnarvaez.registros_futbol_backend.controllers;
 import java.util.List;
 import java.util.Map;
+
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,14 +39,14 @@ public class FutbolistaRestController {
     }
 
     @PostMapping("/futbolistas")
-    public FutbolistaDTO create(@RequestBody FutbolistaDTO futbolista) {
+    public FutbolistaDTO create(@RequestBody @Valid FutbolistaDTO futbolista) {
         FutbolistaDTO objFutbolista = null;
         objFutbolista = futbolistaService.crearFutbolista(futbolista);
         return objFutbolista;
     }
 
     @PutMapping("/futbolistas/{id}")
-    public FutbolistaDTO update(@RequestBody FutbolistaDTO futbolista, @PathVariable Integer id) {
+    public FutbolistaDTO update(@RequestBody @Valid FutbolistaDTO futbolista, @PathVariable Integer id) {
         FutbolistaDTO objFutbolista = null;
         FutbolistaDTO futbolistaActual = futbolistaService.obtenerFutbolistaPorId(id);
         if (futbolistaActual != null) {
